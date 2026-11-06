@@ -1,0 +1,16 @@
+{
+  "name": "zju-vpn",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "description": "Windows campus routing with direct-first Clash fallback to zju-connect",
+  "scripts": {
+    "test": "node tests/clash-parser.test.cjs && node tests/public-source.test.cjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "yaml": "2.9.1"
+  }
+}

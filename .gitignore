@@ -1,0 +1,25 @@
+# Defense in depth: local data belongs outside this repository.
+config.toml
+client_data.json
+*.clixml
+*.clixml.*
+*.log
+*.log.*
+*.bak*
+/zju-connect-windows-*/
+/dist/
+/release/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+/node_modules/
+/coverage/
+/.local/
+/.tmp/
+*.zip
+.DS_Store
+Thumbs.db
