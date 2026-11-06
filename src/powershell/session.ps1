@@ -21,7 +21,12 @@ function Write-ZjuSessionState([string]$Directory, [string]$State, [string]$Mess
 function Invoke-ZjuSession {
     param([string]$SessionDir, [switch]$ForceZjuRestart, [string]$MutexName = 'Local\ZjuVpnInteractiveSession')
     $resolved = [IO.Path]::GetFullPath($SessionDir)
-    if ((Split-Path -Parent $resolved) -ne $script:CampusData -or (Split-Path -Leaf $resolved) -notmatch '^ui-session-[a-f0-9]{32}$') {
+    # Compare normalized paths through the same API, including short TEMP aliases
+    # and equivalent paths containing a trailing separator or dot component.
+    $dataRoot = [IO.Path]::GetFullPath($script:CampusData).TrimEnd([IO.Path]::DirectorySeparatorChar)
+    $parent = [IO.Path]::GetDirectoryName($resolved)
+    if (-not [string]::Equals($parent, $dataRoot, [StringComparison]::OrdinalIgnoreCase) -or
+        [IO.Path]::GetFileName($resolved) -notmatch '^ui-session-[a-f0-9]{32}$') {
         throw 'Invalid private session directory.'
     }
     if (-not $ForceZjuRestart -and (Test-ProxyPorts @(1090,1091) @('zju-connect'))) {

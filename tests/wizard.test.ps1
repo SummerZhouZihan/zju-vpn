@@ -147,7 +147,7 @@ public static class VpnFixture {
 param($Root, $Data, $SessionDir, $FakeExe)
 $ErrorActionPreference = 'Stop'
 . (Join-Path $Root 'src\powershell\common.ps1')
-$script:CampusData = $Data
+$script:CampusData = Join-Path $Data '.'
 . (Join-Path $Root 'src\powershell\session.ps1')
 $script:FixtureExe = $FakeExe
 function Get-ZjuExecutable { return $script:FixtureExe }
